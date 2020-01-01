@@ -9,7 +9,7 @@ Summary:	Sphinx extension to support coroutines in markup
 Summary(pl.UTF-8):	Rozszerzenie Sphinksa do obsługi korutyn w znacznikach
 Name:		python-sphinxcontrib-asyncio
 Version:	0.2.0
-Release:	1
+Release:	2
 License:	Apache v2
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/sphinxcontrib-asyncio/
@@ -36,6 +36,7 @@ BuildRequires:	rpmbuild(macros) >= 1.714
 BuildRequires:	sphinx-pdg
 %endif
 Requires:	python-modules >= 1:2.7
+Requires:	python-sphinxcontrib
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -50,6 +51,7 @@ Summary:	Sphinx extension to support coroutines in markup
 Summary(pl.UTF-8):	Rozszerzenie Sphinksa do obsługi korutyn w znacznikach
 Group:		Libraries/Python
 Requires:	python3-modules >= 1:3.3
+Requires:	python3-sphinxcontrib
 
 %description -n python3-sphinxcontrib-asyncio
 Sphinx extension for adding asyncio-specific markups.
@@ -100,10 +102,16 @@ rm -rf $RPM_BUILD_ROOT
 %py_install
 
 %py_postclean
+# provides by python-sphinxcontrib in PLD
+%{__rm} $RPM_BUILD_ROOT%{py_sitescriptdir}/sphinxcontrib/__init__.py*
 %endif
 
 %if %{with python3}
 %py3_install
+
+# provides by python3-sphinxcontrib in PLD
+%{__rm} $RPM_BUILD_ROOT%{py3_sitescriptdir}/sphinxcontrib/__init__.py \
+	$RPM_BUILD_ROOT%{py3_sitescriptdir}/sphinxcontrib/__pycache__/__init__.*.py*
 %endif
 
 %clean
@@ -113,10 +121,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES.rst README.rst
-# XXX: shared dir
-%dir %{py_sitescriptdir}/sphinxcontrib
-# XXX: beware of other packages providing __init__ here
-%{py_sitescriptdir}/sphinxcontrib/__init__.py[co]
 %{py_sitescriptdir}/sphinxcontrib/asyncio.py[co]
 %{py_sitescriptdir}/sphinxcontrib_asyncio-%{version}-py*.egg-info
 %endif
@@ -125,14 +129,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python3-sphinxcontrib-asyncio
 %defattr(644,root,root,755)
 %doc CHANGES.rst README.rst
-# XXX: shared dirs
-%dir %{py3_sitescriptdir}/sphinxcontrib
-%dir %{py3_sitescriptdir}/sphinxcontrib/__pycache__
 %{py3_sitescriptdir}/sphinxcontrib/asyncio.py
 %{py3_sitescriptdir}/sphinxcontrib/__pycache__/asyncio.cpython-*.py[co]
-# XXX: beware of other packages providing __init__ here
-%{py3_sitescriptdir}/sphinxcontrib/__init__.py
-%{py3_sitescriptdir}/sphinxcontrib/__pycache__/__init__.cpython-*.py[co]
 %{py3_sitescriptdir}/sphinxcontrib_asyncio-%{version}-py*.egg-info
 %endif
 
