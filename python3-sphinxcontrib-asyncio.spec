@@ -7,7 +7,7 @@ Summary:	Sphinx extension to support coroutines in markup
 Summary(pl.UTF-8):	Rozszerzenie Sphinksa do obsługi korutyn w znacznikach
 Name:		python3-sphinxcontrib-asyncio
 Version:	0.3.0
-Release:	3
+Release:	4
 License:	Apache v2
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/sphinxcontrib-asyncio/
