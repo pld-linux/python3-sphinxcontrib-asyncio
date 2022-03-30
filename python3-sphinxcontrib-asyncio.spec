@@ -28,7 +28,7 @@ BuildRequires:	python3-sphinxcontrib-asyncio
 BuildRequires:	sphinx-pdg >= 3.0
 %endif
 Requires:	python3-modules >= 1:3.5
-Requires:	python-sphinxcontrib
+Requires:	python3-sphinxcontrib
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
