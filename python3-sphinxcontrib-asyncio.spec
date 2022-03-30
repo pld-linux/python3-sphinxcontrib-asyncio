@@ -23,6 +23,8 @@ BuildRequires:	python3-pytest
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with doc}
+# requires already installed package
+BuildRequires:	python3-sphinxcontrib-asyncio
 BuildRequires:	sphinx-pdg >= 3.0
 %endif
 Requires:	python3-modules >= 1:3.5
