@@ -1,0 +1,36 @@
+--- sphinxcontrib-asyncio-0.3.0/sphinxcontrib/asyncio.py.orig	2020-08-19 11:44:24.000000000 +0200
++++ sphinxcontrib-asyncio-0.3.0/sphinxcontrib/asyncio.py	2025-06-29 18:08:33.805437717 +0200
+@@ -1,3 +1,4 @@
++from docutils import nodes
+ from docutils.parsers.rst import directives
+ from sphinx.domains.python import PyFunction, PyMethod
+ from sphinx.ext.autodoc import FunctionDocumenter, MethodDocumenter, \
+@@ -26,22 +27,22 @@ class PyCoroutineMixin(object):
+                    'async-for': directives.flag}
+ 
+     def get_signature_prefix(self, sig):
+-        ret = ''
++        ret = []
+         if 'staticmethod' in self.options:
+-            ret += 'staticmethod '
++            ret.append(nodes.Text('staticmethod'))
+         if 'classmethod' in self.options:
+-            ret += 'classmethod '
++            ret.append(nodes.Text('classmethod'))
+         if 'coroutine' in self.options:
+             coroutine = True
+         else:
+             coroutine = ('async-with' not in self.options and
+                          'async-for' not in self.options)
+         if coroutine:
+-            ret += 'coroutine '
++            ret.append(nodes.Text('coroutine'))
+         if 'async-with' in self.options:
+-            ret += 'async-with '
++            ret.append(nodes.Text('async-with'))
+         if 'async-for' in self.options:
+-            ret += 'async-for '
++            ret.append(nodes.Text('async-for'))
+         return ret
+ 
+ 

@@ -1,0 +1,21 @@
+--- sphinxcontrib-asyncio-0.3.0/docs/autodoc_example.py.orig	2020-08-19 11:44:24.000000000 +0200
++++ sphinxcontrib-asyncio-0.3.0/docs/autodoc_example.py	2025-06-29 18:22:37.117535770 +0200
+@@ -1,16 +1,11 @@
+-import asyncio
+-
+-
+ class MyClass:
+ 
+     def my_func(self):
+         """ Normal function """
+ 
+-    @asyncio.coroutine
+-    def my_coro(self):
++    async def my_coro(self):
+         """ This is my coroutine """
+ 
+ 
+-@asyncio.coroutine
+-def coro(param):
++async def coro(param):
+     """ Module level async function """

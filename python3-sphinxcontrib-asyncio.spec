@@ -7,12 +7,14 @@ Summary:	Sphinx extension to support coroutines in markup
 Summary(pl.UTF-8):	Rozszerzenie Sphinksa do obsługi korutyn w znacznikach
 Name:		python3-sphinxcontrib-asyncio
 Version:	0.3.0
-Release:	7
+Release:	8
 License:	Apache v2
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/sphinxcontrib-asyncio/
 Source0:	https://files.pythonhosted.org/packages/source/s/sphinxcontrib-asyncio/sphinxcontrib-asyncio-%{version}.tar.gz
 # Source0-md5:	5445823a927f3368dd81b9061bec0055
+Patch0:		sphinxcontrib-asyncio-sphinx6.patch
+Patch1:		sphinxcontrib-asyncio-python3.10.patch
 URL:		https://pypi.org/project/sphinxcontrib-asyncio/
 BuildRequires:	python3-modules >= 1:3.5
 BuildRequires:	python3-setuptools
@@ -51,6 +53,8 @@ Dokumentacja API modułu Pythona sphinxcontrib-asyncio.
 
 %prep
 %setup -q -n sphinxcontrib-asyncio-%{version}
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
 %py3_build
@@ -62,7 +66,8 @@ PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
 
 %if %{with doc}
 PYTHONPATH=$(pwd) \
-%{__make} -C docs html
+%{__make} -C docs html \
+	SPHINXBUILD=sphinx-build-3
 %endif
 
 %install
@@ -70,7 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %py3_install
 
-# provides by python3-sphinxcontrib in PLD
+# provided by python3-sphinxcontrib in PLD
 %{__rm} $RPM_BUILD_ROOT%{py3_sitescriptdir}/sphinxcontrib/__init__.py \
 	$RPM_BUILD_ROOT%{py3_sitescriptdir}/sphinxcontrib/__pycache__/__init__.*.py*
 
